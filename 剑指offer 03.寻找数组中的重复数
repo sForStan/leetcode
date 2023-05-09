@@ -1,0 +1,14 @@
+int findRepeatNumber(int* nums,int numSize){
+  int *hash=(int*)malloc(sizeof(int)*numSize);
+  memset(hash,0,sizeof(int)*numSize);
+  for(int i=0;i<numSize;i++)
+  {
+    if(hash[nums[i]]){
+      return nums[i];
+    }
+    else{
+      hash[nums[i]]++;
+    }
+  }
+  return 0;
+}

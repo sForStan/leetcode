@@ -1,15 +1,33 @@
 //在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字
+//1.第一种方法：哈希表
 int findRepeatNumber(int* nums,int numSize){
   int *hash=(int*)malloc(sizeof(int)*numSize);
-  memset(hash,0,sizeof(int)*numSize);
+  memset(hash,0,sizeof(int)*numSize);//全部初始化为0 
   for(int i=0;i<numSize;i++)
   {
-    if(hash[nums[i]]){
+    if(hash[nums[i]]){//如果该位置被标记过（不为0），则说明遇到重复的数字
       return nums[i];
     }
     else{
-      hash[nums[i]]++;
+      hash[nums[i]]++;//遇到一个不重复的数就标记为1
     }
   }
   return 0;
+}
+//第二种方法：看题，数组长度为n，但数字范围只有0~n-1，所以如果给数组进行排序，没有重复的情况下nums[i]的值就应该是下标i
+int findRepeatNumber(int* nums,int numSize){
+  int temp;
+  for(int i=0;i<numSize;i++){
+    while(i!=nums[i]){
+      temp=nums[i];
+      if(nums[temp]==temp){//如果nums[i]的位置已经是i了，说明现在这个数字的重复出现的
+        return temp;
+      }
+      else{
+        int tmp=nums[temp];
+        nums[temp]=nums[i];
+        nums[i]=tmp;
+      }
+    }
+  }
 }
